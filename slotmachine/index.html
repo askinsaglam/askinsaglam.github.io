@@ -27,10 +27,50 @@
 						<table >
 								<tr>
 										<form>  
-											    Game Mode:<br>
-												<input type="radio" name="gamemode" value="Debug" checked>Debug<br>
-												<input type="radio" name="gamemode" value="Random">Random<br>
+												Game Mode:<br>
+												<input type="radio" name="gamemode" value="Random" checked>Random
+												<input type="radio" name="gamemode" value="Fixed">Fixed
 												<br>
+												<br>
+												<div id="FixedModeArea">
+												Reel1:<br>
+												Symbol:<br>
+												<input type="radio" name="r1symbols" value="BAR" checked>BAR
+												<input type="radio" name="r1symbols" value="2xBAR">2xBAR
+												<input type="radio" name="r1symbols" value="3xBAR">3xBAR<br>
+												<input type="radio" name="r1symbols" value="Cherry">Cherry
+												<input type="radio" name="r1symbols" value="7">7<br>
+												Position:<br>
+												<input type="radio" name="r1positions" value="top" checked>Top
+												<input type="radio" name="r1positions" value="center">Center
+												<input type="radio" name="r1positions" value="bottom">Bottom
+												<br>
+												<br>
+												Reel2:<br>
+												Symbol:<br>
+												<input type="radio" name="r2symbols" value="BAR" checked>BAR
+												<input type="radio" name="r2symbols" value="2xBAR">2xBAR
+												<input type="radio" name="r2symbols" value="3xBAR">3xBAR<br>
+												<input type="radio" name="r2symbols" value="Cherry">Cherry
+												<input type="radio" name="r2symbols" value="7">7<br>
+												Position:<br>
+												<input type="radio" name="r2positions" value="top" checked>Top
+												<input type="radio" name="r2positions" value="center">Center
+												<input type="radio" name="r2positions" value="bottom">Bottom
+												<br>
+												<br>
+												Reel3:<br>
+												Symbol:<br>
+												<input type="radio" name="r3symbols" value="BAR" checked>BAR
+												<input type="radio" name="r3symbols" value="2xBAR">2xBAR
+												<input type="radio" name="r3symbols" value="3xBAR">3xBAR<br>
+												<input type="radio" name="r3symbols" value="Cherry">Cherry
+												<input type="radio" name="r3symbols" value="7">7<br>
+												Position:<br>
+												<input type="radio" name="r3positions" value="top" checked>Top
+												<input type="radio" name="r3positions" value="center">Center
+												<input type="radio" name="r3positions" value="bottom">Bottom
+												</div>
 												<br>
 												<br>
 												Balance:<br>
@@ -42,7 +82,7 @@
 						 </table>
 				</td>
 				<td>
-                        <table >
+                        <table style="margin-left: 30px;">
 								<tr>
 								  <th colspan="3" style="tab-size: center;">Symbols</th>
 								  <th colspan="1" style="text-align: center;">Line</th>
@@ -205,15 +245,16 @@
 				</td>
 			</tr>
 		</table>
-	
-
 	    
-		
-		
-
-
-
-	
-
+	<script>
+	   $('#FixedModeArea').hide();
+	   $("input[name='gamemode']").on('click', function () {
+			if ($("input[name='gamemode']:checked").val() == "Random") {
+				$('#FixedModeArea').hide();
+			} else {
+				$('#FixedModeArea').show();
+			}
+	   });
+	</script>
   </body>
 </html>

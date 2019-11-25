@@ -1,6 +1,6 @@
 const SLOTS_PER_REEL = 10;
 // radius = Math.round( ( panelWidth / 2) / Math.tan( Math.PI / SLOTS_PER_REEL ) ); 
-// current settings give a value of 149, rounded to 150
+// current settings give a value of 123
 const REEL_RADIUS = 123;
 
 const Symbols = ["3xBAR", "BAR", "2xBAR", "7", "Cherry", "3xBAR", "BAR", "2xBAR", "7", "Cherry"]
@@ -28,9 +28,8 @@ function createSlots (ring) {
 
 		slot.style.transform = transform;
 
-		// setup the number to show inside the slots
+		// setup the image to show inside the slots
 		// the position is randomized to 
-
 		var content = $(slot).append('<img src="images/'+Symbols[i]+'.png" alt="'+Symbols[i]+'" height="60" width="60" >');
 
 		// add the poster to the row
@@ -39,7 +38,7 @@ function createSlots (ring) {
 }
 
 function getSeed() {
-	// generate random number smaller than 13 then floor it to settle between 0 and 12 inclusive
+	// generate random number
 	return Math.floor(Math.random()*(SLOTS_PER_REEL));
 }
 
@@ -118,7 +117,11 @@ function addPayouts(sum) {
 	$('#balance').val(total);
 }
 
-function spin(timer) {
+const sleep = function(milliseconds) {
+	return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+
+function randomSpin(timer) {
 	let balance = $('#balance').val();
 	getPrice(balance);
 
@@ -153,16 +156,94 @@ function spin(timer) {
 		bottomLine.push(valBottom);		
 	}
 	
-	console.log(topLine);
-	console.log(centerLine);
-	console.log(bottomLine);
-	
-	sum = calculatePayouts(topLine, LineType.TOP);
-	sum = sum + calculatePayouts(centerLine, LineType.CENTER);
-	sum = sum + calculatePayouts(bottomLine, LineType.BOTTOM);
+	sleep(2000).then(function(){
+		
+		sum = calculatePayouts(topLine, LineType.TOP);
+		sum = sum + calculatePayouts(centerLine, LineType.CENTER);
+		sum = sum + calculatePayouts(bottomLine, LineType.BOTTOM);
 
-	addPayouts(sum); 
+		addPayouts(sum); 
+	});
+
 }
+
+function fixedSpin(symbolArr, positionArr){
+	let balance = $('#balance').val();
+	getPrice(balance);
+
+	let sum = 0;
+	let centerLine = [];
+	let topLine = [];
+	let bottomLine = [];
+				 
+	for(var i = 1; i < 4; i ++) {
+
+        let index = Symbols.indexOf(symbolArr[i-1]);
+	    let spinNum = findSpinDegClass(index, positionArr[i-1]);
+	    $('#ring'+i).css('animation','spin-' + spinNum + ' ' + '1s')
+					 .attr('class','ring spin-' + spinNum);
+
+		var valTop = $('#ring'+i+' #slot-'+getIndexOnTopLine(spinNum)+' img').attr('alt');	
+		var valCenter = $('#ring'+i+' #slot-'+getIndexOnCenterLine(spinNum)+' img').attr('alt');
+		var valBottom = $('#ring'+i+' #slot-'+getIndexOnBottomLine(spinNum)+' img').attr('alt');
+
+		topLine.push(valTop);
+		centerLine.push(valCenter);
+		bottomLine.push(valBottom);		
+	}
+
+
+	sleep(1000).then(function(){
+		console.log(topLine);
+		console.log(centerLine);
+		console.log(bottomLine);
+		
+		sum = calculatePayouts(topLine, LineType.TOP);
+		sum = sum + calculatePayouts(centerLine, LineType.CENTER);
+		sum = sum + calculatePayouts(bottomLine, LineType.BOTTOM);
+
+		addPayouts(sum); 
+	});
+}
+
+function findSpinDegClass(index, position) {
+	switch (position) {
+		case LineType.TOP:
+				if (index == 3) {
+					return 9;
+				} else if (index == 2) {
+					return 8;
+				} else if (index == 1) {
+					return 7;
+				} else if (index == 0) {
+					return 6;
+				} else {
+					return index - 4;
+				}
+		case LineType.CENTER:
+				if (index == 2) {
+					return 9;
+				} else if (index == 1) {
+					return 8;
+				} else if (index == 0) {
+					return 7;
+				} else {
+					return index - 3;
+				}
+		case LineType.BOTTOM:
+				if (index == 1) {
+					return 9;
+				} else if (index == 0) {
+					return 8;
+				} else {
+					return index - 2;
+				}			
+		default:
+			break;
+	}
+}
+
+
 
 $(document).ready(function() {
     
@@ -171,8 +252,27 @@ $(document).ready(function() {
  	createSlots($('#ring3'));
 
  	$('.go').on('click',function(){
- 		var timer = 2;
- 		spin(timer);
+
+		var gamemode = $("input[name='gamemode']:checked").val();
+		
+		if(gamemode == "Random"){
+			var timer = 1;
+			randomSpin(timer);
+		} else{
+			var symbol1 = $("input[name='r1symbols']:checked").val();
+			var position1 = $("input[name='r1positions']:checked").val();
+			var symbol2 = $("input[name='r2symbols']:checked").val();
+			var position2 = $("input[name='r2positions']:checked").val();
+			var symbol3 = $("input[name='r3symbols']:checked").val();
+			var position3 = $("input[name='r3positions']:checked").val();
+
+			let symbols = [symbol1, symbol2, symbol3];
+			let positions = [position1, position2, position3];
+
+	
+			fixedSpin(symbols, positions);
+		}
+
  	})
  
- });
+});
