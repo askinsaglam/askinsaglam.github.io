@@ -1,0 +1,84 @@
+### Site Settings ###
+title               : Aşkın SAĞLAM
+description         : >-                               # >- means to ignore newlines until "url:"
+                      Mid-Level Software Developer with more than four years of experience in the application development.
+Involved in full-stack development. Problem solver, clean coder, ambitious
+self learner, team player
+
+
+url                 : "https://askinsaglam.github.io/"                               # base hostname & protocol for your site (e.g. http://example.com)
+baseurl             : ""                    # subpath of your site (e.g. /blog) [IMPORTANT: use "" if your are hosting at https://username.github.io directly]
+repository          : askinsaglam/askinsaglam.github.io    # repository metadata on GitHub Pages [know more at https://help.github.com/en/articles/repository-metadata-on-github-pages]
+
+
+### Navbar Settings ###
+nav_exclude:                        # Pages with the following paths will be excluded from navbar
+  - 404.html
+  - index.html
+  - blog/tags.html
+  - blog/page-:num/index.html
+
+
+### Author Info ###
+author:
+  name              : Aşkın SAĞLAM
+  image             : assets/images/askin-saglam.jpg
+#  behance           : your_username
+# dribbble          : your_username
+  email             : saglamaskin@gmail.com
+#  facebook          : your_username
+  github            : askinsaglam
+# gitlab            : your_username
+# instagram         : your_username
+  linkedin          : askinsaglam
+#  medium            : your_username
+# soundcloud        : your_username
+# spotify           : your_username
+# stackoverflow     : your_user_id
+# tumblr            : your_username.tumblr.com
+# twitch            : your_username
+  twitter           : askinsaglam
+# vimeo             : your_username
+# youtube           : your_channel_name
+
+
+### Posts ###
+permalink: :title
+
+
+### Collections ###
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name
+
+
+### Defaults for collections ###
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "page"
+
+
+### Plugins ###
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-default-layout
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-include-cache
+  - jemoji
+
+
+### Exclude from processing ###
+exclude:
+  - README.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - Gemfile
+  - portfolyou-jekyll-theme.gemspec
+  - "*.log"
