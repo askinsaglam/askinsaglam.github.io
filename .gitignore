@@ -4,13 +4,9 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 
-# Ruby Gem
-*.gem
+# Ruby Gems
 .bundle
 Gemfile.lock
-
-# Photoshop Documents
-*.psd
 
 # Log Files
 *.log

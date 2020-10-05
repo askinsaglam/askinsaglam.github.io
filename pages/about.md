@@ -5,13 +5,16 @@ permalink: /about/
 weight: 3
 ---
 
-<img src="/assets/images/askin-saglam.jpg" alt="Aşkın SAĞLAM" title="Aşkın SAĞLAM" class="rounded-circle img-fluid" style="height:250px" />
+# **About Me**
 
 Hi I am **{{ site.author.name }}** :wave:,<br>
-I've always been passionate about coding, and I'm eager to apply my programming skills to new pursuits. I love to interact with my team setting sharing my skills and knowledge. Having been studied on several programming languages, I can easily learn a new programming language and develop innovative applications. 
-
-You can visit [projects]({{ site.baseurl }}{% link pages/projects.html %}) page for more...
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 
 <div class="row">
-{% include about/skills.html %}
+{% include about/skills.html title="Programming Skills" source=site.data.programming-skills %}
+{% include about/skills.html title="Other Skills" source=site.data.other-skills %}
+</div>
+
+<div class="row">
+{% include about/timeline.html %}
 </div>
